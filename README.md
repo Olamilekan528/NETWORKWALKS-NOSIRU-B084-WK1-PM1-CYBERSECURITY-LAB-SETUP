@@ -1,4 +1,4 @@
-#  Cybersecurity Lab Environment Setup
+# 🔐 Cybersecurity Lab Environment Setup
 
 **Building an isolated virtual lab for cybersecurity testing and ethical hacking practice**
 
@@ -12,15 +12,15 @@
 
 ---
 
-##  Project Overview
+## 📌 Project Overview
 
 This project sets up a private virtual cybersecurity lab on my Windows computer using **VirtualBox** and **Kali Linux**.
 
 The goal is a safe, controlled environment where security tools can be practiced without touching any real network. The lab sits on its own private virtual network, so more machines (Windows, Linux, Android) can be added later and used as practice targets.
 
->  **Ethical use:** Everything in this project runs inside my own virtual lab on my own computer. Nothing here is used against any system I do not own or have written permission to test.
+> ⚠️ **Ethical use:** Everything in this project runs inside my own virtual lab on my own computer. Nothing here is used against any system I do not own or have written permission to test.
 
-##  Requirements
+## 🎯 Requirements
 
 | # | Requirement | Status |
 |---|---|---|
@@ -33,7 +33,7 @@ The goal is a safe, controlled environment where security tools can be practiced
 | 7 | Kali Linux has full Internet access | ✅ |
 | 8 | Snapshot taken | ✅ |
 
-##  Lab Environment
+## 🧰 Lab Environment
 
 | Item | Value |
 |---|---|
@@ -46,13 +46,13 @@ The goal is a safe, controlled environment where security tools can be practiced
 | Gateway | 10.0.0.1 |
 | DNS | 8.8.8.8 |
 
-##  Steps I Followed
+## 🛠️ Steps I Followed
 
 ### Step 1: Check VirtualBox
 
-I confirmed I was running VirtualBox **7.2.16**, the latest 7.2 release available to me.
+I confirmed I was running VirtualBox **7.2.16**.
 
-![VirtualBox version](images/1-virtualbox-version.png)
+![VirtualBox version](images/1-virtualbox-version.png.jpeg)
 
 ### Step 2: Create the NAT Network (10.0.0.0/24)
 
@@ -64,11 +64,12 @@ I already had a NAT Network on the default 10.0.2.0/24 range that other VMs of m
 - **DHCP:** enabled
 - **IPv6:** disabled
 
-![NAT Network](images/2-nat-network-10.0.0.0-24.png)
+![Shared folder](images/5-shared-folder-downloads.png.jpeg)
 
 ### Step 3: Take a safety snapshot first
 
 Before changing anything on the existing Kali VM, I took a snapshot called `before-internship-lab`, so I could roll back if something broke.
+![Clipboard and drag-and-drop](images/3-dragdrop-bidirectional.png.jpeg)
 
 ### Step 4: Attach Kali to the new network
 
@@ -80,19 +81,19 @@ In the Kali VM settings (**Network, Adapter 1**):
 - **Promiscuous mode:** Allow All (so tools like Wireshark can see all traffic on the lab network)
 - **Cable connected:** ticked
 
-![Kali network adapter](images/4-kali-network-adapter.png)
+![NAT Network](images/2-nat-network.png.jpeg)
 
 ### Step 5: Enable clipboard and drag-and-drop
 
 In **Settings, General, Features**, I set both **Shared Clipboard** and **Drag-and-Drop** to **Bidirectional**, so copy/paste and file dragging work in both directions between Windows and Kali. I tested copy and paste both ways and it works.
 
-![Clipboard and drag-and-drop](images/3-clipboard-dragdrop-bidirectional.png)
+![Kali network adapter](images/4-kali-network-adapter.png.jpeg)
 
 ### Step 6: Share the host Downloads folder
 
 In **Settings, Shared Folders**, I added my Windows **Downloads** folder as a shared folder with **Auto-mount** and **Make Global** enabled. Inside Kali it appears at `/media/sf_Downloads`.
 
-![Shared folder](images/5-shared-folder-downloads.png)
+![Snapshots](images/7-snapshots.png.jpeg)
 
 ### Step 7: Set the static IP on Kali
 
@@ -119,15 +120,15 @@ ping -c 4 google.com
 - `8.8.8.8` replies, which proves Internet access
 - `google.com` replies, which proves DNS works
 
-![IP and Internet test](images/6-kali-ip-internet-sharedfolder.png)
+![IP and Internet test](images/6-kali-ip-internet-sharedfolder.png.jpeg)
 
 ### Step 9: Take the final snapshot
 
 Once everything worked, I took a snapshot called `WK1-PM1-lab-complete`, which preserves the finished lab.
 
-![Snapshots](images/7-snapshots.png)
+![Clipboard and drag-and-drop](images/3-dragdrop-bidirectional.png.jpeg)
 
-##  Troubleshooting: no IP address after setting the static IP
+## 🧩 Troubleshooting: no IP address after setting the static IP
 
 **Problem:** After switching Kali to a manual IP, `ip -br a` showed `eth0` as UP but with **no IPv4 address**, and pings failed with "Network is unreachable".
 
@@ -143,7 +144,7 @@ sudo nmcli connection up "Wired connection 1"
 
 After that, `eth0` showed 10.0.0.2/24 and all the ping tests succeeded.
 
-##  What I Learned
+## 📚 What I Learned
 
 - How **NAT**, **NAT Network** and host-only networking differ, and why a NAT Network suits a multi-machine lab
 - How to read **CIDR notation**: what /24 means and how IP, netmask, gateway and DNS work together
@@ -152,7 +153,7 @@ After that, `eth0` showed 10.0.0.2/24 and all the ping tests succeeded.
 - A real troubleshooting workflow: read the symptoms (`ip -br a`, ping tests), find the layer that is failing, then apply a targeted fix
 - Keeping existing work safe by adding a new network instead of changing one other VMs rely on
 
-## Next Steps
+## 🚀 Next Steps
 
 The lab is ready for further practice, including adding Windows and Linux target machines on the same network and running authorized scans and traffic analysis inside the lab.
 
