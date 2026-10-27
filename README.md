@@ -46,7 +46,7 @@ The goal is a safe, controlled environment where security tools can be practiced
 | Gateway | 10.0.0.1 |
 | DNS | 8.8.8.8 |
 
-## 🛠️ Steps I Followed
+##  Steps I Followed
 
 ### Step 1: Check VirtualBox
 
